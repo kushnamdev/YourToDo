@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block Title %} Home{% endblock Title %}
+{% block HomeActive %}active{% endblock HomeActive %}
+{% block body %}
+    <div class="container my-3">
+        <h2>Add a ToDo</h2>
+        <form action="/" method="POST">
+            <div class="mb-3">
+                <label for="title" class="form-label">ToDo Title</label>
+                <input type="text" class="form-control" name="title" id="title">
+            </div>
+            <div class="mb-3">
+                <label for="desc" class="form-label">Description</label>
+                <input type="text" class="form-control" name="desc" id="desc">
+            </div>
+            
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </div>
+    </form>
+
+
+
+    <div class="container my-3">
+        
+        {% if alltodo|length == 0 %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Hello Hustlers!!</strong> Start organising your life by adding a new todo. 🔥
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        {% else %}
+        <h2>Your ToDo's</h2>
+        <table class="table">
+             <thead>
+                 <tr>
+                     <th scope="col">S.NO</th>
+                     <th scope="col">Title</th>
+                     <th scope="col">Description</th>
+                     <th scope="col">Time</th>
+                     <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in alltodo %}
+                    
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{todo.title}}</td>
+                    <td>{{todo.desc}}</td>
+                    <td>{{todo.date_created}}</td>
+                    <td>
+                        <a href="/edit/{{todo.sno}}" type="button" class="btn btn btn-outline-dark btn-sm mx-1" >Edit</a>
+                        <a href="/delete/{{todo.sno}}" type="button" class="btn btn btn-outline-dark btn-sm mx-1">Delete</a>
+                        
+                    </td>
+                </tr>
+                
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        {% endif %}
+        
+
+        
+    </div>
+    
+    
+    
+    
+    
+    {% endblock body %}
+    
+    
